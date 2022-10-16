@@ -14,4 +14,13 @@ from collections.abc import Callable
 
 
 def cache(func: Callable) -> Callable:
-    ...
+    """!"""
+    cached_values={}
+    def wrapper(*args):
+        if args in cached_values:
+            return cached_values[args]
+        else:
+            returned_value=func(*args)
+            cached_values[args]=returned_value
+            return returned_value
+    return wrapper
